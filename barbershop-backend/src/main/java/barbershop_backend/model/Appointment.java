@@ -29,7 +29,7 @@ public class Appointment {
     @NotNull(message = "Serviço é obrigatório")
     @ManyToOne
     @JoinColumn(name = "service_id", nullable = false)
-    private BarberService service;
+    private BarberServiceEntity service;
 
     @NotNull(message = "Data/hora de início é obrigatória")
     @Column(nullable = false)
