@@ -1,6 +1,7 @@
 package barbershop_backend.service;
 
 import barbershop_backend.dto.ClientDTO;
+import barbershop_backend.exception.EmailAlreadyExistsException;
 import barbershop_backend.exception.ResourceNotFoundException;
 import barbershop_backend.mapper.ClientMapper;
 import barbershop_backend.model.Client;
