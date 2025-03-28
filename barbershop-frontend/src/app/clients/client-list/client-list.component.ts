@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
 import { Client, ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-client-list',
+  standalone: true, 
+  imports: [CommonModule, RouterLink], 
   templateUrl: './client-list.component.html',
   styleUrls: ['./client-list.component.scss']
 })

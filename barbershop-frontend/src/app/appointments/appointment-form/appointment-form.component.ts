@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Appointment, AppointmentService } from '../../services/appointment.service';
 import { Client, ClientService } from '../../services/client.service';
 import { BarberService, BarberServiceService } from '../../services/barber-service.service';
@@ -7,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-form',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './appointment-form.component.html',
   styleUrls: ['./appointment-form.component.scss']
 })
@@ -27,30 +30,29 @@ export class AppointmentFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.clientService.getAll().subscribe({
-      next: (data) => this.clients = data,
-      error: (err) => console.error('Erro ao buscar clientes', err)
+      next: (data: Client[]) => this.clients = data,
+      error: (err: any) => console.error('Erro ao buscar clientes', err)
     });
 
     this.barberServiceService.getAll().subscribe({
-      next: (data) => this.services = data,
-      error: (err) => console.error('Erro ao buscar serviços', err)
+      next: (data: BarberService[]) => this.services = data,
+      error: (err: any) => console.error('Erro ao buscar serviços', err)
     });
 
     this.form = this.fb.group({
       clientId: [null, Validators.required],
       serviceId: [null, Validators.required],
       startTime: ['', Validators.required],
-      status: ['AGENDADO'] 
+      status: ['AGENDADO']
     });
 
     this.appointmentId = Number(this.route.snapshot.paramMap.get('id'));
     if (this.appointmentId) {
-      // Edição
       this.appointmentService.getById(this.appointmentId).subscribe({
-        next: (appointment) => {
+        next: (appointment: Appointment) => {
           this.form.patchValue(appointment);
         },
-        error: (err) => console.error('Erro ao buscar agendamento', err)
+        error: (err: any) => console.error('Erro ao buscar agendamento', err)
       });
     }
   }
@@ -65,7 +67,7 @@ export class AppointmentFormComponent implements OnInit {
           alert('Agendamento atualizado com sucesso!');
           this.router.navigate(['/agendamentos']);
         },
-        error: (err) => console.error('Erro ao atualizar agendamento', err)
+        error: (err: any) => console.error('Erro ao atualizar agendamento', err)
       });
     } else {
       this.appointmentService.create(data).subscribe({
@@ -73,7 +75,7 @@ export class AppointmentFormComponent implements OnInit {
           alert('Agendamento criado com sucesso!');
           this.router.navigate(['/agendamentos']);
         },
-        error: (err) => console.error('Erro ao criar agendamento', err)
+        error: (err: any) => console.error('Erro ao criar agendamento', err)
       });
     }
   }

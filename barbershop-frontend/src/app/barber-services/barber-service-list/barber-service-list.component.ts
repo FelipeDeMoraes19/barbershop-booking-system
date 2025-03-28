@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
 import { BarberService, BarberServiceService } from '../../services/barber-service.service';
 
 @Component({
   selector: 'app-barber-service-list',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './barber-service-list.component.html',
   styleUrls: ['./barber-service-list.component.scss']
 })

@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
 import { Appointment, AppointmentService } from '../../services/appointment.service';
 
 @Component({
   selector: 'app-appointment-list',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './appointment-list.component.html',
   styleUrls: ['./appointment-list.component.scss']
 })
@@ -17,10 +22,10 @@ export class AppointmentListComponent implements OnInit {
 
   loadAppointments(): void {
     this.appointmentService.getAll().subscribe({
-      next: (data) => {
+      next: (data: Appointment[]) => {
         this.appointments = data;
       },
-      error: (err) => console.error('Erro ao buscar agendamentos', err)
+      error: (err: any) => console.error('Erro ao buscar agendamentos', err)
     });
   }
 
@@ -30,7 +35,7 @@ export class AppointmentListComponent implements OnInit {
     if (confirmDelete) {
       this.appointmentService.delete(id).subscribe({
         next: () => this.loadAppointments(),
-        error: (err) => console.error('Erro ao excluir agendamento', err)
+        error: (err: any) => console.error('Erro ao excluir agendamento', err)
       });
     }
   }

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { BarberService, BarberServiceService } from '../../services/barber-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-barber-service-form',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './barber-service-form.component.html',
   styleUrls: ['./barber-service-form.component.scss']
 })

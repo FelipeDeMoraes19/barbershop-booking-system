@@ -1,35 +1,34 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Lista de Clientes</h2>
-    <a class="btn btn-primary" [routerLink]="['/clientes/novo']">Novo Cliente</a>
-  </div>
-  
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Telefone</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let c of clients">
-        <td>{{ c.name }}</td>
-        <td>{{ c.email }}</td>
-        <td>{{ c.phone }}</td>
-        <td>
-          <button 
-            class="btn btn-warning btn-sm me-2"
-            [routerLink]="['/clientes/editar', c.id]">
-            Editar
-          </button>
-          <button 
-            class="btn btn-danger btn-sm"
-            (click)="deleteClient(c.id)">
-            Excluir
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
+  <h2>Lista de Clientes</h2>
+  <a class="btn btn-primary" [routerLink]="['/clientes/novo']">Novo Cliente</a>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Telefone</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of clients">
+      <td>{{ c.name }}</td>
+      <td>{{ c.email }}</td>
+      <td>{{ c.phone }}</td>
+      <td>
+        <button 
+          class="btn btn-warning btn-sm me-2"
+          [routerLink]="['/clientes/editar', c.id]">
+          Editar
+        </button>
+        <button 
+          class="btn btn-danger btn-sm"
+          (click)="deleteClient(c.id)">
+          Excluir
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
