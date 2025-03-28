@@ -8,11 +8,13 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {ClientMapper.class, BarberServiceMapper.class})
 public interface AppointmentMapper {
-    
+
+    @Mapping(source = "id", target = "id")
     @Mapping(source = "clientId", target = "client.id")
     @Mapping(source = "serviceId", target = "service.id")
     Appointment toEntity(AppointmentDTO appointmentDTO);
 
+    @Mapping(source = "id", target = "id")
     @Mapping(source = "client.id", target = "clientId")
     @Mapping(source = "service.id", target = "serviceId")
     AppointmentDTO toDto(Appointment appointment);

@@ -33,9 +33,23 @@ public class AppointmentController {
         return appointmentService.getAllAppointments();
     }
 
+    @GetMapping("/{id}")
+    @Operation(summary = "Busca um agendamento por ID")
+    public AppointmentDTO getAppointmentById(@PathVariable Long id) {
+        return appointmentService.getAppointmentById(id);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualiza um agendamento existente")
+    public AppointmentDTO updateAppointment(
+            @PathVariable Long id,
+            @Valid @RequestBody AppointmentDTO appointmentDTO) {
+        return appointmentService.updateAppointment(id, appointmentDTO);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Cancela um agendamento")
+    @Operation(summary = "Cancela (exclui) um agendamento")
     public void cancelAppointment(@PathVariable Long id) {
         appointmentService.deleteAppointment(id);
     }
