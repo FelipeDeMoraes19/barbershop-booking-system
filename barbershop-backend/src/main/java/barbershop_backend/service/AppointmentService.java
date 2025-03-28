@@ -13,6 +13,7 @@ import barbershop_backend.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import barbershop_backend.model.Client;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,18 +29,17 @@ public class AppointmentService {
 
     @Transactional
     public AppointmentDTO createAppointment(AppointmentDTO appointmentDTO) {
-        if (!clientRepository.existsById(appointmentDTO.clientId())) {
-            throw new ResourceNotFoundException("Cliente não encontrado");
-        }
+        Client client = clientRepository.findById(appointmentDTO.clientId())
+            .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
 
-        BarberServiceEntity serviceEntity = barberServiceRepository.findById(appointmentDTO.serviceId())
-                .orElseThrow(() -> new ResourceNotFoundException("Serviço não encontrado"));
+        BarberServiceEntity service = barberServiceRepository.findById(appointmentDTO.serviceId())
+            .orElseThrow(() -> new ResourceNotFoundException("Serviço não encontrado"));
 
         if (appointmentDTO.startTime().isBefore(LocalDateTime.now())) {
             throw new ConflictException("Não é possível agendar para um horário passado.");
         }
 
-        LocalDateTime endTime = appointmentDTO.startTime().plusMinutes(serviceEntity.getDurationMinutes());
+        LocalDateTime endTime = appointmentDTO.startTime().plusMinutes(service.getDurationMinutes());
 
         if (appointmentRepository.existsByClientIdAndStartTimeBetween(
                 appointmentDTO.clientId(),
@@ -49,6 +49,8 @@ public class AppointmentService {
         }
 
         Appointment appointment = appointmentMapper.toEntity(appointmentDTO);
+        appointment.setClient(client);
+        appointment.setService(service);
         appointment.setEndTime(endTime);
         appointment.setStatus(AppointmentStatus.AGENDADO);
 

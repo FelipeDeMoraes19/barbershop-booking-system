@@ -2,19 +2,17 @@ package barbershop_backend.mapper;
 
 import barbershop_backend.dto.AppointmentDTO;
 import barbershop_backend.model.Appointment;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
+import org.mapstruct.*;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {ClientMapper.class, BarberServiceMapper.class})
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AppointmentMapper {
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "clientId", target = "client.id")
-    @Mapping(source = "serviceId", target = "service.id")
+    @Mapping(target = "client", ignore = true)
+    @Mapping(target = "service", ignore = true)
+    @Mapping(target = "endTime", ignore = true)
+    @Mapping(target = "status", ignore = true)
     Appointment toEntity(AppointmentDTO appointmentDTO);
 
-    @Mapping(source = "id", target = "id")
     @Mapping(source = "client.id", target = "clientId")
     @Mapping(source = "service.id", target = "serviceId")
     AppointmentDTO toDto(Appointment appointment);
