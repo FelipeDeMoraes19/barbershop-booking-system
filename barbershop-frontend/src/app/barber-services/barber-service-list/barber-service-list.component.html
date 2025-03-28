@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Lista de Serviços</h2>
+    <a class="btn btn-primary" [routerLink]="['/servicos/novo']">Novo Serviço</a>
+  </div>
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Preço</th>
+        <th>Duração (min)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of services">
+        <td>{{ s.name }}</td>
+        <td>{{ s.description }}</td>
+        <td>{{ s.price }}</td>
+        <td>{{ s.durationMinutes }}</td>
+      </tr>
+    </tbody>
+  </table>
+  

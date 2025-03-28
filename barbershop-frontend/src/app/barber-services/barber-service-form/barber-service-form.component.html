@@ -1,0 +1,20 @@
+<h2>Novo Serviço</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label>Nome:</label>
+    <input type="text" formControlName="name" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label>Descrição:</label>
+    <input type="text" formControlName="description" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label>Preço:</label>
+    <input type="number" formControlName="price" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label>Duração (minutos):</label>
+    <input type="number" formControlName="durationMinutes" class="form-control" />
+  </div>
+  <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Salvar</button>
+</form>
