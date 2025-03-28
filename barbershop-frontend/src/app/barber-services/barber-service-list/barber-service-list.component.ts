@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BarberService, BarberServiceService } from 'src/app/services/barber-service.service';
+import { BarberService, BarberServiceService } from '../../services/barber-service.service';
 
 @Component({
   selector: 'app-barber-service-list',
@@ -17,10 +17,10 @@ export class BarberServiceListComponent implements OnInit {
 
   loadServices(): void {
     this.serviceService.getAll().subscribe({
-      next: (data) => {
+      next: (data: BarberService[]) => {
         this.services = data;
       },
-      error: (err) => console.error('Erro ao buscar serviços', err)
+      error: (err: any) => console.error('Erro ao buscar serviços', err)
     });
   }
 }

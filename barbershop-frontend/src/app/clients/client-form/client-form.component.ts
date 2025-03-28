@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Client, ClientService } from 'src/app/services/client.service';
+import { Client, ClientService } from '../../services/client.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -29,10 +29,10 @@ export class ClientFormComponent implements OnInit {
     this.clientId = Number(this.route.snapshot.paramMap.get('id'));
     if (this.clientId) {
       this.clientService.getById(this.clientId).subscribe({
-        next: (client) => {
+        next: (client: Client) => {
           this.form.patchValue(client);
         },
-        error: (err) => console.error('Erro ao buscar cliente', err)
+        error: (err: any) => console.error('Erro ao buscar cliente', err)
       });
     }
   }
@@ -47,7 +47,7 @@ export class ClientFormComponent implements OnInit {
           alert('Cliente atualizado com sucesso!');
           this.router.navigate(['/clientes']);
         },
-        error: (err) => console.error('Erro ao atualizar cliente', err)
+        error: (err: any) => console.error('Erro ao atualizar cliente', err)
       });
     } else {
       this.clientService.create(clientData).subscribe({
@@ -55,7 +55,7 @@ export class ClientFormComponent implements OnInit {
           alert('Cliente criado com sucesso!');
           this.router.navigate(['/clientes']);
         },
-        error: (err) => console.error('Erro ao criar cliente', err)
+        error: (err: any) => console.error('Erro ao criar cliente', err)
       });
     }
   }

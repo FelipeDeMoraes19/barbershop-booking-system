@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BarberService, BarberServiceService } from 'src/app/services/barber-service.service';
+import { BarberService, BarberServiceService } from '../../services/barber-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -26,7 +26,6 @@ export class BarberServiceFormComponent implements OnInit {
       price: [0, [Validators.required]],
       durationMinutes: [0, [Validators.required]]
     });
-
   }
 
   onSubmit(): void {
@@ -39,7 +38,7 @@ export class BarberServiceFormComponent implements OnInit {
         alert('Serviço criado com sucesso!');
         this.router.navigate(['/servicos']);
       },
-      error: (err) => console.error('Erro ao criar serviço', err)
+      error: (err: any) => console.error('Erro ao criar serviço', err)
     });
   }
 }

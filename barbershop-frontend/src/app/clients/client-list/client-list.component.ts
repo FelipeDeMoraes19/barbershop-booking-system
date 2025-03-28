@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Client, ClientService } from 'src/app/services/client.service';
+import { Client, ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-client-list',
@@ -17,10 +17,10 @@ export class ClientListComponent implements OnInit {
 
   loadClients(): void {
     this.clientService.getAll().subscribe({
-      next: (data) => {
+      next: (data: Client[]) => {
         this.clients = data;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erro ao buscar clientes', err);
       }
     });
@@ -32,7 +32,7 @@ export class ClientListComponent implements OnInit {
     if (confirmDelete) {
       this.clientService.delete(id).subscribe({
         next: () => this.loadClients(),
-        error: (err) => console.error('Erro ao excluir cliente', err)
+        error: (err: any) => console.error('Erro ao excluir cliente', err)
       });
     }
   }
