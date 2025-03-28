@@ -1,0 +1,40 @@
+<h2>{{ appointmentId ? 'Editar Agendamento' : 'Novo Agendamento' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label>Cliente:</label>
+    <select formControlName="clientId" class="form-select">
+      <option [ngValue]="null">Selecione um cliente</option>
+      <option *ngFor="let c of clients" [ngValue]="c.id">{{ c.name }}</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Serviço:</label>
+    <select formControlName="serviceId" class="form-select">
+      <option [ngValue]="null">Selecione um serviço</option>
+      <option *ngFor="let s of services" [ngValue]="s.id">{{ s.name }}</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Data/Hora de Início:</label>
+    <input type="datetime-local" formControlName="startTime" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label>Status:</label>
+    <select formControlName="status" class="form-select">
+      <option value="AGENDADO">AGENDADO</option>
+      <option value="CONFIRMADO">CONFIRMADO</option>
+      <option value="EM_ANDAMENTO">EM_ANDAMENTO</option>
+      <option value="CONCLUIDO">CONCLUIDO</option>
+      <option value="CANCELADO">CANCELADO</option>
+      <option value="FALTOU">FALTOU</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+    {{ appointmentId ? 'Salvar Alterações' : 'Agendar' }}
+  </button>
+</form>
